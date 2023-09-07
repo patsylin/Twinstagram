@@ -3,17 +3,14 @@ const express = require('express');
 const router = express.Router();
 
 // Define routes for different sections of your app
-router.get('/cats', (req, res) => {
-  res.send('List of Cats');
+router.get('/posts', (req, res) => {
+  res.send('posts');
 });
 
-router.get('/dogs', (req, res) => {
-  res.send('List of Dogs');
+router.get('/users', (req, res) => {
+  res.send('users');
 });
 
-router.get('/other', (req, res) => {
-  res.send('List of Other Pets');
-});
 
 // Export the router
 module.exports = router;
