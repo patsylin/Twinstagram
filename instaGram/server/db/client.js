@@ -2,7 +2,7 @@
 const { Client } = require('pg');
 
 // Define your database name
-const dbName = "socialmedia"; // Replace with your actual database name
+const dbName = "postgres"; // Replace with your actual database name
 
 // Create a new instance of the Client with your database URL
 const client = new Client(`postgres://localhost:5432/${dbName}`);
