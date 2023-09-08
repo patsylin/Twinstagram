@@ -1,5 +1,5 @@
-const { Client } = require("pg");
-const client = require("./db/client"); // Import the client from your client.js file in the DB folder
+
+const client = require("./client"); // Import the client from your client.js file in the DB folder
 
 const { createUser, getAllUsers } = require('./helpers/users')
 const { createPost } = require('./helpers/posts')
@@ -65,11 +65,12 @@ async function createTables() {
     await client.end();
   }
 }
+//Create user
 const createInitialUsers = async () => {
   try {
       //Looping through the "users" array from seedData
       for (const user of users) {
-          //Insert each trainer into the table
+          //Insert each user into the table
           await createUser(user)
       }
       console.log("created user")
@@ -78,7 +79,7 @@ const createInitialUsers = async () => {
   }
 }
 
-//Create types
+//Create post
 const createInitialPosts = async () => {
   try {
       for (const post of posts) {
@@ -91,7 +92,7 @@ const createInitialPosts = async () => {
   }
 }
 
-//Create species
+//Create comment
 const createInitialComment = async () => {
   try {
       for (const comment of comments) {
@@ -104,7 +105,7 @@ const createInitialComment = async () => {
   }
 }
 
-//Create pokemon
+//Create like
 const createInitialLike = async () => {
   try {
       for (const like of likes) {
@@ -130,8 +131,8 @@ const rebuildDb = async () => {
       console.log("starting to seed...")
       await createInitialUsers()
       await createInitialPosts()
-      await createInitialComments()
-      await createInitialLikes()
+      await createInitialComment()
+      await createInitialLike()
 
   } catch (error) {
       console.error(error)
