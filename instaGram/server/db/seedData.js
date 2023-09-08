@@ -9,7 +9,7 @@ const users = [
     {
       username: 'user2',
       fullName: 'User Two',
-      bio: 'Travel enthusiast 🌍',
+      bio: 'Travel freak 🌍',
       profileImage: 'user2.jpg',
     }
   ];
