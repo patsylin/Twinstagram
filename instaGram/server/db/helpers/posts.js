@@ -5,7 +5,7 @@ const { posts } = require('../seedData');
 
 async function postGetAll() {
   try {
-    const result = await queryAsync('SELECT * FROM posts');
+    const result = await client.query('SELECT * FROM posts');
     return result.rows;
   } catch (error) {
     throw error;
@@ -14,7 +14,7 @@ async function postGetAll() {
 
 async function postGetById(postId) {
   try {
-    const result = await queryAsync('SELECT * FROM posts WHERE id = $1', [postId]);
+    const result = await client.query('SELECT * FROM posts WHERE id = $1', [postId]);
     return result.rows[0];
   } catch (error) {
     throw error;

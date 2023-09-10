@@ -4,7 +4,7 @@ const { likes } = require('../seedData');
 
 async function getAllLikes() {
   try {
-    const result = await queryAsync('SELECT * FROM likes');
+    const result = await client.query('SELECT * FROM likes');
     return result.rows;
   } catch (error) {
     throw error;
@@ -13,7 +13,7 @@ async function getAllLikes() {
 
 async function likeGetById(likeId) {
   try {
-    const result = await queryAsync('SELECT * FROM likes WHERE id = $1', [likeId]);
+    const result = await client.query('SELECT * FROM likes WHERE id = $1', [likeId]);
     return result.rows[0];
   } catch (error) {
     throw error;

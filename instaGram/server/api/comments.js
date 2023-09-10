@@ -5,7 +5,7 @@ const { getAllComments, commentGetById, createComment, updateComment, deleteComm
 
 router.get('/', async (req, res, next) => {
     try {
-        const users = await userGetAll();
+        const users = await getAllComments();
         res.send(users);
     } catch (error) {
         next(error);
@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const user = await userGetById(req.params.id);
+        const user = await commentGetById(req.params.id);
         res.send(user);
     } catch (error) {
         next(error);
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const userPost = await createUser(req.body);
+        const userPost = await createComment(req.body);
         res.send(user);
     } catch (err) {
         next(err);
@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try {
-        const user = await updateUser(req.params.id, req.body);
+        const user = await updateComment(req.params.id, req.body);
         res.send(user);
     } catch (err) {
         next(err);
@@ -41,7 +41,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const user = await deleteUser(req.params.id);
+        const user = await deleteComment(req.params.id);
         res.send(user);
     } catch (err) {
         next(err);

@@ -5,7 +5,7 @@ const { comments } = require('../seedData');
 
 async function getAllComments() {
   try {
-    const result = await queryAsync('SELECT * FROM comments');
+    const result = await client.query('SELECT * FROM comments');
     return result.rows;
   } catch (error) {
     throw error;
@@ -14,7 +14,7 @@ async function getAllComments() {
 
 async function commentGetById(commentId) {
   try {
-    const result = await queryAsync('SELECT * FROM comments WHERE id = $1', [commentId]);
+    const result = await client.query('SELECT * FROM comments WHERE id = $1', [commentId]);
     return result.rows[0];
   } catch (error) {
     throw error;
