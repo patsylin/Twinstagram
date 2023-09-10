@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { userGetAll, userGetById} = require('../db/helpers/users')
+const { getAllComments, commentGetById, createComment, updateComment, deleteComment} = require('../db/helpers/comments')
 
 router.get('/', async (req, res, next) => {
     try {

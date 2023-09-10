@@ -1,5 +1,6 @@
 
 const client = require('../client');
+const { posts } = require('../seedData');
 
 
 async function postGetAll() {

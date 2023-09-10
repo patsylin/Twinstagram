@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const { userGetAll, userGetById} = require('../db/helpers/users')
+const { getAllLikes,
+    likeGetById,
+    createLike,
+    updateLike,
+    deleteLike } = require('../db/helpers/likes')
 
 router.get('/', async (req, res, next) => {
     try {
-        const users = await userGetAll();
-        res.send(users);
+        const likes = await getAllLikes();
+        res.send(likes);
     } catch (error) {
         next(error);
     }
@@ -14,7 +18,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const user = await userGetById(req.params.id);
+        const user = await likeGetById(req.params.id);
         res.send(user);
     } catch (error) {
         next(error);
@@ -23,8 +27,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const userPost = await createUser(req.body);
-        res.send(user);
+        const userLike = await createLike(req.body);
+        res.send(userLike);
     } catch (err) {
         next(err);
     }
@@ -32,7 +36,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try {
-        const user = await updateUser(req.params.id, req.body);
+        const user = await updateLike(req.params.id, req.body);
         res.send(user);
     } catch (err) {
         next(err);
@@ -41,7 +45,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const user = await deleteUser(req.params.id);
+        const user = await deleteLike(req.params.id);
         res.send(user);
     } catch (err) {
         next(err);

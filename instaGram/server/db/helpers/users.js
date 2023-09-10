@@ -1,5 +1,6 @@
 // In users.js
 const client = require('../client');
+const { users } = require('../seedData');
 
 
 async function userGetAll() {

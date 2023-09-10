@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { postGetAll, postGetById, createPost} = require('../db/helpers/posts')
+const { postGetAll, postGetById, createPost, updatePost, deletePost} = require('../db/helpers/posts')
 
 router.get('/', async (req, res, next) => {
     try {

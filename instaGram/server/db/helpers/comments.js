@@ -3,23 +3,23 @@ const client = require('../client');
 const { comments } = require('../seedData');
 
 
-// async function postGetAll() {
-//   try {
-//     const result = await queryAsync('SELECT * FROM posts');
-//     return result.rows;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+async function getAllComments() {
+  try {
+    const result = await queryAsync('SELECT * FROM comments');
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
 
-// async function postGetById(postId) {
-//   try {
-//     const result = await queryAsync('SELECT * FROM posts WHERE id = $1', [postId]);
-//     return result.rows[0];
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+async function commentGetById(commentId) {
+  try {
+    const result = await queryAsync('SELECT * FROM comments WHERE id = $1', [commentId]);
+    return result.rows[0];
+  } catch (error) {
+    throw error;
+  }
+}
 
 const createComment = async ({user_id, post_id, text, timestamp}) => {
   try {
@@ -38,8 +38,45 @@ const createComment = async ({user_id, post_id, text, timestamp}) => {
   }
 }
 
+async function updateComment (commentId, fields) {
+  try {
+      const toUpdate = {}
+      for (let column in fields) {
+          if (fields[column] !== undefined) toUpdate[column] = fields[column];
+      }
+      let user;
+
+      if (util.dbFields(toUpdate).insert.length > 0) {
+          const { rows } = await client.query(`
+          UPDATE user
+          SET ${util.dbFields(toUpdate).insert}
+          WHERE "commentId"=${commentId}
+          RETURNING *;
+        `, Object.values(toUpdate));
+          user = rows[0];
+      }
+
+      return user;
+  } catch (error) {
+      throw error
+  }
+}
+
+async function deleteComment(commentId) {
+  try {
+      const { rows } = await client.query('DELETE FROM comment WHERE "commentId"=$1 RETURNING *', [commentId]);
+      return rows[0];
+  } catch (err) {
+      throw err
+  }
+}
+
+
+
 module.exports = {
-  // postGetAll,
-  // postGetById,
-  createComment
+  getAllComments,
+  commentGetById,
+  createComment,
+  updateComment,
+  deleteComment
 };
