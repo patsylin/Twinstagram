@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const { userGetAll, userGetById, updateUser, deleteUser} = require('../db/helpers/users')
+const { postGetAll, postGetById, createPost} = require('../db/helpers/posts')
 
 router.get('/', async (req, res, next) => {
     try {
-        const users = await userGetAll();
-        res.send(users);
+        const posts = await postGetAll();
+        res.send(posts);
     } catch (error) {
         next(error);
     }
@@ -14,8 +14,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const user = await userGetById(req.params.id);
-        res.send(user);
+        const post = await postGetById(req.params.id);
+        res.send(post);
     } catch (error) {
         next(error);
     }
@@ -23,8 +23,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const userPost = await createUser(req.body);
-        res.send(userPost);
+        const postCreate = await createPost(req.body);
+        res.send(postCreate);
     } catch (err) {
         next(err);
     }
@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
     try {
-        const user = await updateUser(req.params.id, req.body);
+        const user = await updatePost(req.params.id, req.body);
         res.send(user);
     } catch (err) {
         next(err);
@@ -41,7 +41,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const user = await deleteUser(req.params.id);
+        const user = await deletePost(req.params.id);
         res.send(user);
     } catch (err) {
         next(err);

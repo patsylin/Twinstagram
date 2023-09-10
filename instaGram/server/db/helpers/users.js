@@ -56,7 +56,7 @@ async function updateUser(userId, fields) {
           user = rows[0];
       }
 
-      return pokemon;
+      return user;
   } catch (error) {
       throw error
   }
