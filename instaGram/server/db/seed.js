@@ -10,13 +10,11 @@ const { users, posts, comments, likes } = require('./seedData')
 
 async function dropTables() {
   try {
-    await client.connect();
-
     // Drop existing tables if they exist
-    await client.query("DROP TABLE IF EXISTS users");
-    await client.query("DROP TABLE IF EXISTS posts");
-    await client.query("DROP TABLE IF EXISTS comments");
     await client.query("DROP TABLE IF EXISTS likes");
+    await client.query("DROP TABLE IF EXISTS comments");
+    await client.query("DROP TABLE IF EXISTS posts");
+    await client.query("DROP TABLE IF EXISTS users");
 
     console.log("Tables dropped successfully");
   } catch (error) {
@@ -41,28 +39,25 @@ async function createTables() {
             "post_id" SERIAL PRIMARY KEY,
             "user_id" INTEGER REFERENCES users("user_id") NOT NULL,
             caption varchar(255) NOT NULL,
-            image_url bytea NOT NULL,
-            time_stamp integer NOT NULL
+            image_url bytea NOT NULL
         );
         CREATE TABLE comments (
             "comment_id" SERIAL PRIMARY KEY,
             "user_id" INTEGER REFERENCES users("user_id") NOT NULL,
             "post_id" INTEGER REFERENCES posts("post_id") NOT NULL,
             text varchar(255) NOT NULL,
-            time_stamp integer NOT NULL
+            time_stamp varchar(255) NOT NULL
         );
         CREATE TABLE likes (
           "like_id" SERIAL PRIMARY KEY,
           "user_id" INTEGER REFERENCES users("user_id") NOT NULL,
           "post_id" INTEGER REFERENCES posts("post_id") NOT NULL,
-          time_stamp integer NOT NULL
+          time_stamp varchar(255) NOT NULL
       );
     `);
     console.log("Tables created successfully");
   } catch (error) {
     console.error("Error creating tables:", error);
-  } finally {
-    await client.end();
   }
 }
 //Create user

@@ -1,28 +1,44 @@
-// In posts.js
-const { Client } = require('pg');
-const client = require('../../db/client');
-const { promisify } = require('util');
-const queryAsync = promisify(client.query).bind(client);
 
-async function postGetAll() {
-  try {
-    const result = await queryAsync('SELECT * FROM posts');
-    return result.rows;
-  } catch (error) {
-    throw error;
-  }
-}
+const client = require('../client');
 
-async function postGetById(postId) {
+
+// async function postGetAll() {
+//   try {
+//     const result = await queryAsync('SELECT * FROM posts');
+//     return result.rows;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
+// async function postGetById(postId) {
+//   try {
+//     const result = await queryAsync('SELECT * FROM posts WHERE id = $1', [postId]);
+//     return result.rows[0];
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
+const createPost = async ({user_id, caption, imageUrl}) => {
   try {
-    const result = await queryAsync('SELECT * FROM posts WHERE id = $1', [postId]);
-    return result.rows[0];
+    const {
+      rows: [post],
+    } = await client.query(
+      `INSERT INTO posts(user_id, caption, image_url)
+      VALUES($1, $2, $3)
+      RETURNING *;
+      `,
+      [user_id, imageUrl, caption]
+    )
+    return post
   } catch (error) {
-    throw error;
+    throw error
   }
 }
 
 module.exports = {
-  postGetAll,
-  postGetById,
+  // postGetAll,
+  // postGetById,
+  createPost
 };
