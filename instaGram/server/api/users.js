@@ -23,8 +23,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const userPost = await createUser(req.body);
-        res.send(userPost);
+        const user = await createUser(req.body);
+        res.send(user);
     } catch (err) {
         next(err);
     }
