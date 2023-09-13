@@ -1,0 +1,22 @@
+import React from "react";
+
+const AllUsers = () => {
+
+
+}
+
+export default AllUsers;
+
+
+// outline for each component
+
+
+//define state
+//define useeffect
+//any other funcs
+//whatever we are returning
+
+//react components are just functions
+//useState: a func, parameter is initial state of our value --then it returns an array with two elements. 1st el--a variable. 2nd el--a function for setting the value for that variable.
+
+//const array equals usestate we are deconstructing the two elements off the array

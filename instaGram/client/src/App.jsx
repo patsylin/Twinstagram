@@ -5,24 +5,29 @@
 // import './App.css'
 import { useState, useEffect } from 'react';
 import { fetchAllUser } from '../fetching';
+import AllUsers from './components/allUsers';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   //useState (to hold data)
-  const [allUser, setAllUser] = useState([]);
+  // const [allUser, setAllUser] = useState([]);
 
-  //useEffect
-  useEffect(() => {
-    async function fetchData(){
-      const user = await fetchAllUser();
-      setAllUser(user);
-      console.log(user);
-      return user;
-    }
-    fetchData();
-  }, [])
+  // //useEffect
+  // useEffect(() => {
+  //   async function fetchData(){
+  //     const user = await fetchAllUser();
+  //     setAllUser(user);
+  //   //  console.log(user);
+  //     return user;
+  //   }
+  //   fetchData();
+  // }, [])
   return (
     <>
-    hello, world
+    <Routes>
+      <Route path='/users' element={<AllUsers/>}/>
+    </Routes>
+
       {/* <NavBar />
 
       <Routes>
@@ -35,3 +40,6 @@ function App() {
 }
 
 export default App;
+
+
+//route path ... if "path is true" then show element
