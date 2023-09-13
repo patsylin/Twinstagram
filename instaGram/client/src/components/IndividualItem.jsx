@@ -6,8 +6,8 @@ import ItemCard from "./ItemCard";
 export default function IndividualItem() {
   const { id } = useParams();
 
-  const [item, setItem] = useState(null);
-  const [error, setError] = useState(null);
+  const [item, setItem] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     async function getSingleItem() {
