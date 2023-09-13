@@ -9,17 +9,15 @@ export async function fetchAllUser() {
     throw error;
   }
 }
-
-// export async function fetchById(item, id) {
-//   try {
-//     const response = await fetch(`${baseUrl}/${item}/${id}`);
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// }
+export async function fetchSingleUser(id) {
+  try {
+    const response = await fetch(`${baseUrl}/users/${id}`);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // export async function create(item, data) {
 //   try {

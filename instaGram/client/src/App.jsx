@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { fetchAllUser } from '../fetching';
 import AllUsers from './components/allUsers';
 import { Route, Routes } from 'react-router-dom';
+import SingleUser from './components/SingleUser';
 
 function App() {
   //useState (to hold data)
@@ -26,6 +27,7 @@ function App() {
     <>
     <Routes>
       <Route path='/users' element={<AllUsers/>}/>
+      <Route path='/users/:user_id' element={<SingleUser/>}/>
     </Routes>
 
       {/* <NavBar />

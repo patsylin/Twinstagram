@@ -14,7 +14,7 @@ async function userGetAll() {
 
 async function userGetById(userId) {
   try {
-    const result = await client.query('SELECT * FROM users WHERE id = $1', [userId]);
+    const result = await client.query('SELECT * FROM users WHERE user_id = $1', [userId]);
     return result.rows[0];
   } catch (error) {
     throw error;
