@@ -19,49 +19,49 @@ export async function fetchSingleUser(id) {
   }
 }
 
-// export async function create(item, data) {
-//   try {
-//     const response = await fetch(`${baseUrl}/${item}`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// }
+export async function fetchCreateUser() {
+  try {
+    const response = await fetch(`${baseUrl}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
-// export async function update(item, id, data) {
-//   try {
-//     const response = await fetch(`${baseUrl}/${item}/${id}`, {
-//       method: 'PUT', // or 'PATCH' if you prefer
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// }
+export async function fetchUpdateUser(item, id, data) {
+  try {
+    const response = await fetch(`${baseUrl}/${item}/${id}`, {
+      method: 'PUT', // or 'PATCH' if you prefer
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
-// export async function remove(item, id) {
-//   try {
-//     const response = await fetch(`${baseUrl}/${item}/${id}`, {
-//       method: 'DELETE',
-//     });
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// }
+export async function fetchRemoveUser(item, id) {
+  try {
+    const response = await fetch(`${baseUrl}/${item}/${id}`, {
+      method: 'DELETE',
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
