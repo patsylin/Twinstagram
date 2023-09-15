@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllUsers } from "../../fetching";
+import { fetchAllPosts } from "../../fetching";
 
-const AllUsers = () => {
+const All = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
-      const result = await fetchAllUsers();
+      const result = await fetchAllPosts();
       setUsers(result);
       console.log(result);
     };
@@ -15,12 +15,12 @@ const AllUsers = () => {
   }, []);
   return (
     <>
-      <h1>All Users</h1>
+      <h1>All Posts</h1>
       {users.map((user) => {
-        return <div key={user.user_id}>{user.username}</div>;
+        return <div key={post.post_id}>{user.username}</div>;
       })}
     </>
   );
 };
 
-export default AllUsers;
+export default AllPosts;

@@ -1,6 +1,6 @@
 const baseUrl =  `http://localhost:8080/api`;
 
-export async function fetchAllUser() {
+export async function fetchAllUsers() {
   try {
     const response = await fetch(`${baseUrl}/users`);
     const result = await response.json();
@@ -9,6 +9,17 @@ export async function fetchAllUser() {
     throw error;
   }
 }
+
+export async function fetchAllPosts() {
+  try {
+    const response = await fetch(`${baseUrl}/posts`);
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function fetchSingleUser(id) {
   try {
     const response = await fetch(`${baseUrl}/users/${id}`);

@@ -9,6 +9,9 @@ import AllUsers from './components/allUsers';
 import { Route, Routes } from 'react-router-dom';
 import SingleUser from './components/SingleUser';
 
+//render UserProfile
+//make a UserProfile route in here
+
 function App() {
   //useState (to hold data)
   // const [allUser, setAllUser] = useState([]);
@@ -25,11 +28,15 @@ function App() {
   // }, [])
   return (
     <>
+    {
+    <NavBar />
+
     <Routes>
       <Route path='/users' element={<AllUsers/>}/>
       <Route path='/users/:user_id' element={<SingleUser/>}/>
     </Routes>
-
+    </>
+}
       {/* <NavBar />
 
       <Routes>
