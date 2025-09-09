@@ -1,69 +1,177 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+.ig-shell {
+  display: grid;
+  grid-template-columns: 72px minmax(320px, 640px) minmax(260px, 360px);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+@media (max-width: 1100px) {
+  .ig-shell {
+    grid-template-columns: 72px minmax(320px, 640px);
+  }
+  .ig-right {
+    display: none;
+  }
 }
-a:hover {
-  color: #535bf2;
+@media (max-width: 768px) {
+  .ig-shell {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .ig-left {
+    display: none;
+  }
+  .ig-feed {
+    padding: 12px;
+  }
 }
 
 body {
-  margin: 0;
+  background: #0f0f10; /* deep gray like IG dark mode */
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ig-left {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+}
+.ig-right {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+.ig-feed {
+  min-height: 100dvh;
+}
+
+.ig-left-nav {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
+  padding: 12px 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  height: 100%;
+}
+.ig-brand {
+  font-weight: 700;
+  margin: 8px 0 16px;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+.ig-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ig-nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.ig-nav-item.active {
+  background: rgba(255, 255, 255, 0.1);
+}
+.ig-icon {
+  width: 24px;
+  text-align: center;
+}
+.ig-nav-label {
+  display: none;
+} /* compact rail */
+.ig-left-spacer {
+  flex: 1;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.ig-right-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.ig-profile-card {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+.ig-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    #5851db,
+    #833ab4,
+    #e1306c,
+    #fd1d1d,
+    #f56040
+  );
+}
+.ig-avatar.sm {
+  width: 34px;
+  height: 34px;
+}
+.ig-profile-meta {
+  display: flex;
+  flex-direction: column;
+}
+.ig-username {
+  font-weight: 600;
+}
+.ig-muted {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.ig-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 14px;
+}
+.ig-link-button {
+  background: none;
+  border: none;
+  color: #8aa0ff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  padding: 0;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.ig-link-button:hover {
+  text-decoration: underline;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.ig-suggest-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.ig-suggest-item {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.ig-card {
+  background: #101113;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.ig-card-head,
+.ig-card-foot {
+  padding: 12px;
+}
+.ig-card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #191b1f;
 }

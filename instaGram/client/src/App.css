@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+
+.ig-feed-inner {
+  max-width: 470px;
+  margin: 0 auto;
+}
+
+.ig-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+h1 {
+  font-size: 28px;
+  margin: 12px 0 16px;
+}

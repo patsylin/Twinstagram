@@ -1,26 +1,40 @@
 import { useEffect, useState } from "react";
-import { fetchAllPosts } from "@/fetching";
+import { fetchAllPosts } from "@/fetching.js";
+import PostCard from "./PostCard.jsx";
 
-const AllPosts = () => {
-  const [users, setUsers] = useState([]);
+export default function AllPosts() {
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const getUsers = async () => {
-      const result = await fetchAllPosts();
-      setUsers(result);
-      console.log(result);
-    };
-
-    getUsers();
+    (async () => {
+      try {
+        const res = await fetchAllPosts();
+        // expected shape: [{ id, username, imageUrl?, caption? }, ...]
+        setPosts(Array.isArray(res) ? res : []);
+      } catch {
+        // demo placeholders if API not ready
+        setPosts([
+          {
+            id: 1,
+            username: "missionlocal",
+            caption: "Sample caption for demo.",
+          },
+          { id: 2, username: "sonya", caption: "Another caption example." },
+        ]);
+      }
+    })();
   }, []);
-  return (
-    <>
-      <h1>All Posts</h1>
-      {users.map((user) => {
-        return <div key={post.post_id}>{user.username}</div>;
-      })}
-    </>
-  );
-};
 
-export default AllPosts;
+  return (
+    <div className="ig-feed-inner">
+      {posts.map((p) => (
+        <PostCard
+          key={p.id}
+          username={p.username}
+          imageUrl={p.imageUrl}
+          caption={p.caption}
+        />
+      ))}
+    </div>
+  );
+}
