@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { fetchAllPosts } from "../../fetching";
+import { useEffect, useState } from "react";
+import { fetchAllPosts } from "@/fetching";
 
-const All = () => {
+const AllPosts = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

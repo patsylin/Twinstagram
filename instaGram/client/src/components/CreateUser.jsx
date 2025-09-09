@@ -1,26 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { fetchCreateUser } from "../../fetching";
+import { useState } from "react";
+import { fetchCreateUser } from "@/fetching";
 
-const CreateUser = () => {
-  const [users, setUsers] = useState([]);
+export default function CreateUser() {
+  const [username, setUsername] = useState("");
+  const [status, setStatus] = useState(null);
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const result = await fetchCreateUser();
-      setUsers(result);
-      console.log(result);
-    };
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const created = await fetchCreateUser({ username });
+      setStatus(`Created user: ${created?.username ?? "(unknown)"}`);
+      setUsername("");
+    } catch (err) {
+      setStatus("Error creating user");
+      console.error(err);
+    }
+  }
 
-    getUsers();
-  }, []);
   return (
     <>
       <h1>Create User</h1>
-      {users.map((user) => {
-        return <div key={user.user_id}>{user.username}</div>;
-      })}
+      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 8 }}>
+        <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="username"
+          required
+        />
+        <button type="submit">Create</button>
+      </form>
+      {status && <p>{status}</p>}
     </>
   );
-};
-
-export default CreateUser;
+}

@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 
-export default function Nav() {
+export default function NavBar() {
   return (
-    <div>
+    <nav style={{ padding: "1rem" }}>
       <Link to="/">Home</Link>
-    </div>
+      {" | "}
+      <Link to="/users">Users</Link>
+      {" | "}
+      <Link to="/users/new">Create User</Link>
+    </nav>
   );
 }

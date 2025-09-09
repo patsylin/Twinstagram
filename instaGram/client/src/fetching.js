@@ -1,43 +1,29 @@
-const baseUrl =  `http://localhost:8080/api`;
+const baseUrl = `http://localhost:8080/api`;
 
 export async function fetchAllUsers() {
-  try {
-    const response = await fetch(`${baseUrl}/users`);
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  const response = await fetch(`${baseUrl}/users`);
+  const result = await response.json();
+  return result;
 }
 
 export async function fetchAllPosts() {
-  try {
-    const response = await fetch(`${baseUrl}/posts`);
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  const response = await fetch(`${baseUrl}/posts`);
+  const result = await response.json();
+  return result;
 }
 
 export async function fetchSingleUser(id) {
-  try {
-    const response = await fetch(`${baseUrl}/users/${id}`);
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  const response = await fetch(`${baseUrl}/users/${id}`);
+  const result = await response.json();
+  return result;
 }
 
-export async function fetchCreateUser() {
+export async function fetchCreateUser(data) {
   try {
     const response = await fetch(`${baseUrl}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data), // e.g., { username: "patsy" }
     });
     const result = await response.json();
     return result;
@@ -50,9 +36,9 @@ export async function fetchCreateUser() {
 export async function fetchUpdateUser(item, id, data) {
   try {
     const response = await fetch(`${baseUrl}/${item}/${id}`, {
-      method: 'PUT', // or 'PATCH' if you prefer
+      method: "PUT", // or 'PATCH' if you prefer
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -67,7 +53,7 @@ export async function fetchUpdateUser(item, id, data) {
 export async function fetchRemoveUser(item, id) {
   try {
     const response = await fetch(`${baseUrl}/${item}/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
     const result = await response.json();
     return result;

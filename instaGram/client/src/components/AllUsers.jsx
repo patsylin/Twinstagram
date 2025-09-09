@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { fetchAllUsers } from "../../fetching";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchAllUsers } from "@/fetching.js";
 
-const AllUsers = () => {
+export default function AllUsers() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const getUsers = async () => {
+    (async () => {
       const result = await fetchAllUsers();
-      setUsers(result);
-      console.log(result);
-    };
-
-    getUsers();
+      setUsers(Array.isArray(result) ? result : []);
+    })();
   }, []);
+
   return (
     <>
       <h1>All Users</h1>
-      {users.map((user) => {
-        return <div key={user.user_id}>{user.username}</div>;
-      })}
+      {users.length === 0 && <p>No users yet.</p>}
+      {users.map((u) => (
+        <div key={u.user_id ?? u.id}>
+          <Link to={`/users/${u.user_id ?? u.id}`}>{u.username}</Link>
+        </div>
+      ))}
     </>
   );
-};
-
-export default AllUsers;
+}
