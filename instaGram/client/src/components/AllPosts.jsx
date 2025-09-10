@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchAllPosts } from "@/fetching.js";
 import PostCard from "./PostCard.jsx";
+import { IMAGE_POOL } from "../data/images.js";
+
+console.log("IMAGE_POOL:", IMAGE_POOL);
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
@@ -12,15 +15,14 @@ export default function AllPosts() {
         // expected shape: [{ id, username, imageUrl?, caption? }, ...]
         setPosts(Array.isArray(res) ? res : []);
       } catch {
-        // demo placeholders if API not ready
-        setPosts([
-          {
-            id: 1,
-            username: "missionlocal",
-            caption: "Sample caption for demo.",
-          },
-          { id: 2, username: "sonya", caption: "Another caption example." },
-        ]);
+        // Demo placeholders if API not ready
+        const demoPosts = IMAGE_POOL.map((src, i) => ({
+          id: i + 1,
+          username: `user_${i + 1}`,
+          caption: `This is a demo caption for image ${i + 1}.`,
+          imageUrl: src,
+        }));
+        setPosts(demoPosts);
       }
     })();
   }, []);
