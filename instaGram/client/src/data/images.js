@@ -1,19 +1,27 @@
-// client/src/data/images.js
+// src/data/images.js
 
-// Vite will scan the folder and turn each file into a build-ready URL
+// Vite will scan all image files in assets/images
 const files = import.meta.glob("../assets/images/*.{png,jpg,jpeg,gif,webp}", {
   eager: true,
-  as: "url",
+  import: "default", // import the actual file so we can resolve URL
 });
 
-// Build objects with BOTH filename + url
-export const IMAGES = Object.entries(files).map(([path, url]) => {
+export const IMAGES = Object.entries(files).map(([path]) => {
   const filename = path.split("/").pop(); // e.g. "pic1.jpg"
+  // Use Vite's URL resolver to get a safe, build-ready URL
+  const url = new URL(path.replace("../", "/src/"), import.meta.url).href;
+
   return { filename, url };
 });
 
-// For backwards compatibility (if you still need them elsewhere)
-export const IMAGE_POOL = IMAGES.map((img) => img.url); // just urls
-export const IMAGE_PATHS = IMAGES.map((img) => img.filename); // just filenames
+// Optional: if other code still expects just URLs or filenames
+export const IMAGE_POOL = IMAGES.map((x) => x.url);
+export const IMAGE_PATHS = IMAGES.map((x) => x.filename);
 
-console.log("IMAGES:", IMAGES);
+// Debug log (remove once confirmed working)
+console.table(
+  IMAGES.map((img) => ({
+    filename: img.filename,
+    url: img.url,
+  }))
+);
