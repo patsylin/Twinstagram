@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchAllPosts } from "@/fetching.js";
 import PostCard from "./PostCard.jsx";
-import { IMAGE_POOL } from "../data/images.js";
-
-console.log("IMAGE_POOL:", IMAGE_POOL);
+import { IMAGES } from "../data/images.js";
+import { CAPTION_BY_FILE } from "../data/captions.js";
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
@@ -12,17 +11,22 @@ export default function AllPosts() {
     (async () => {
       try {
         const res = await fetchAllPosts();
-        // expected shape: [{ id, username, imageUrl?, caption? }, ...]
-        setPosts(Array.isArray(res) ? res : []);
+
+        // Use API only if it returns a usable array with imageUrl
+        if (Array.isArray(res) && res.length > 0) {
+          setPosts(res);
+        } else {
+          throw new Error("Empty or invalid API result");
+        }
       } catch {
-        // Demo placeholders if API not ready
-        const demoPosts = IMAGE_POOL.map((src, i) => ({
+        // Fallback: build posts from local bundled images
+        const demo = IMAGES.map(({ filename, url }, i) => ({
           id: i + 1,
-          username: `user_${i + 1}`,
-          caption: `This is a demo caption for image ${i + 1}.`,
-          imageUrl: src,
+          username: `user_${(i % 5) + 1}`,
+          imageUrl: url,
+          caption: CAPTION_BY_FILE[filename] || "",
         }));
-        setPosts(demoPosts);
+        setPosts(demo);
       }
     })();
   }, []);
@@ -40,3 +44,6 @@ export default function AllPosts() {
     </div>
   );
 }
+
+// in AllPosts useEffect after building demo
+console.log("DEMO POSTS", demo);

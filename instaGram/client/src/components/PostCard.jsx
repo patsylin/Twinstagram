@@ -8,7 +8,6 @@ export default function PostCard({
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  // Neutral fallback if a filename is wrong or image fails to load
   const fallback = "https://picsum.photos/seed/twinstagram-fallback/1200/1200";
 
   return (
@@ -35,7 +34,7 @@ export default function PostCard({
         className="ig-card-img"
         style={{
           width: "100%",
-          aspectRatio: "1 / 1", // forces a perfect square like IG
+          aspectRatio: "1 / 1",
           position: "relative",
           overflow: "hidden",
           borderRadius: 12,
@@ -43,8 +42,7 @@ export default function PostCard({
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
-        {/* skeleton while loading */}
-        {!loaded && (
+        {!loaded && imageUrl && (
           <div
             style={{
               position: "absolute",
@@ -74,7 +72,7 @@ export default function PostCard({
             style={{
               width: "100%",
               height: "100%",
-              objectFit: "cover", // crops tall/wide images cleanly
+              objectFit: "cover",
               display: "block",
             }}
           />
@@ -102,8 +100,10 @@ export default function PostCard({
             </button>
           </div>
         </div>
+
+        {/* Caption */}
         {caption && (
-          <div>
+          <div style={{ fontSize: "0.95rem", lineHeight: 1.4 }}>
             <strong>{username}</strong> {caption}
           </div>
         )}

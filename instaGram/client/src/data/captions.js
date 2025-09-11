@@ -1,0 +1,15 @@
+export const CAPTION_BY_FILE = {
+  "pic1.jpg": "First light on fall leaves 🍂",
+  "pic2.jpg": "Loving these colors!",
+  "pic3.jpg": "Blessings",
+  "pic4.jpg": "Nature's Patterns",
+  "pic5.jpg": "Symmetry in Architecture",
+  "pic6.jpg": "Being flexible",
+  "pic7.jpg": "Triangles",
+  "pic8.jpg": "Sunday morning with my succeulents",
+  "pic9.jpg": "Monday walk in the park",
+  "pic10.jpg": "NoW",
+  "pic11.jpg": "My twin's teacher",
+  "pic12.jpg": "Self portrait",
+  "pic13.jpg": "ME",
+};
