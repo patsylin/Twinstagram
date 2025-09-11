@@ -1,17 +1,17 @@
+// src/components/AllPosts.jsx
 import { useEffect, useState } from "react";
 import { fetchAllPosts } from "@/fetching.js";
 import PostCard from "./PostCard.jsx";
-import { IMAGES } from "../data/images.js"; // << keep filename+url
+import { IMAGES } from "../data/images.js";
 import { CAPTION_BY_FILE } from "../data/captions.js";
 
 // Normalize "pic1.abcd123.jpg" or "pic1-xyz987.jpg" -> "pic1.jpg"
 const normalizeFilename = (name = "") => {
-  // split on dots, last part is extension
   const parts = name.split(".");
   if (parts.length < 2) return name;
   const ext = parts.pop(); // jpg|png|webp...
-  const base = parts.join("."); // handles names with extra dots safely
-  const baseStripped = base.split("-")[0].split(".")[0]; // strip hash-ish suffixes
+  const base = parts.join(".");
+  const baseStripped = base.split("-")[0].split(".")[0];
   return `${baseStripped}.${ext}`;
 };
 
@@ -36,11 +36,19 @@ export default function AllPosts() {
             username: `user_${(i % 5) + 1}`,
             imageUrl: url,
             caption: CAPTION_BY_FILE[clean] || "",
+            filename: clean, // keep for debugging
           };
         });
+
         setPosts(demo);
-        console.log(
-          demo.map((d) => ({ file: d.imageUrl, caption: d.caption }))
+
+        // ✅ log filenames, urls, and captions
+        console.table(
+          demo.map((d) => ({
+            file: d.filename,
+            url: d.imageUrl,
+            caption: d.caption,
+          }))
         );
       }
     })();
