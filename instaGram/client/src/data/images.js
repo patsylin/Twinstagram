@@ -15,3 +15,5 @@ export const IMAGES = Object.entries(files).map(([path, url]) => {
 // For backwards compatibility (if you still need them elsewhere)
 export const IMAGE_POOL = IMAGES.map((img) => img.url); // just urls
 export const IMAGE_PATHS = IMAGES.map((img) => img.filename); // just filenames
+
+console.log("IMAGES:", IMAGES);
