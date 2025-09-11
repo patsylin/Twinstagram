@@ -1,27 +1,26 @@
-// src/data/images.js
+const filenames = [
+  "pic1.jpg",
+  "pic2.jpg",
+  "pic3.jpg",
+  "pic4.jpg",
+  "pic5.jpg",
+  "pic6.jpg",
+  "pic7.jpg",
+  "pic8.jpg",
+  "pic9.jpg",
+  "pic10.jpg",
+  "pic11.jpg",
+  "pic12.jpg",
+  "pic13.jpg",
+];
 
-// Vite will scan all image files in assets/images
-const files = import.meta.glob("../assets/images/*.{png,jpg,jpeg,gif,webp}", {
-  eager: true,
-  import: "default", // import the actual file so we can resolve URL
-});
+// Build objects with filename + public URL
+export const IMAGES = filenames.map((name) => ({
+  filename: name,
+  url: `/images/${name}`, // served from /public/images/
+}));
 
-export const IMAGES = Object.entries(files).map(([path]) => {
-  const filename = path.split("/").pop(); // e.g. "pic1.jpg"
-  // Use Vite's URL resolver to get a safe, build-ready URL
-  const url = new URL(path.replace("../", "/src/"), import.meta.url).href;
-
-  return { filename, url };
-});
-
-// Optional: if other code still expects just URLs or filenames
 export const IMAGE_POOL = IMAGES.map((x) => x.url);
 export const IMAGE_PATHS = IMAGES.map((x) => x.filename);
 
-// Debug log (remove once confirmed working)
-console.table(
-  IMAGES.map((img) => ({
-    filename: img.filename,
-    url: img.url,
-  }))
-);
+console.table(IMAGES);

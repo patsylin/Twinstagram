@@ -1,3 +1,4 @@
+// src/components/AllPosts.jsx
 import { useEffect, useState } from "react";
 import { fetchAllPosts } from "@/fetching.js";
 import PostCard from "./PostCard.jsx";
@@ -19,20 +20,27 @@ export default function AllPosts() {
         }
       } catch {
         // Fallback: build posts from local images with caption map
-        const demo = IMAGES.map(({ filename, url }, i) => ({
-          id: i + 1,
-          username: `user_${(i % 5) + 1}`,
-          imageUrl: url,
-          caption: CAPTION_BY_FILE[filename] || `[NO CAPTION for ${filename}]`,
-        }));
+        const demo = IMAGES.map(({ filename, url }, i) => {
+          const caption = CAPTION_BY_FILE[filename];
+
+          if (!caption) {
+            console.warn(`⚠️ Missing caption for: ${filename}`);
+          }
+
+          return {
+            id: i + 1,
+            username: `user_${(i % 5) + 1}`,
+            imageUrl: url,
+            caption: caption || `[NO CAPTION for ${filename}]`,
+          };
+        });
 
         setPosts(demo);
 
-        // Debug log
+        // Debug: show all posts being rendered
         console.table(
           demo.map((d) => ({
-            filename: d.filename,
-            imageUrl: d.imageUrl,
+            filename: d.imageUrl,
             caption: d.caption,
           }))
         );

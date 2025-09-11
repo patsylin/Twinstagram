@@ -8,7 +8,8 @@ export default function PostCard({
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  const fallback = "https://picsum.photos/seed/twinstagram-fallback/1200/1200";
+  // fallback image if something fails
+  const fallback = "https://picsum.photos/seed/twinstagram-fallback/600/600";
 
   return (
     <article className="ig-card">
@@ -42,6 +43,7 @@ export default function PostCard({
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
+        {/* skeleton only while loading AND imageUrl exists */}
         {!loaded && imageUrl && (
           <div
             style={{
@@ -67,7 +69,7 @@ export default function PostCard({
             onLoad={() => setLoaded(true)}
             onError={() => {
               setError(true);
-              setLoaded(true);
+              setLoaded(true); // stops skeleton overlay
             }}
             style={{
               width: "100%",
@@ -101,7 +103,7 @@ export default function PostCard({
           </div>
         </div>
 
-        {/* Caption */}
+        {/* caption */}
         {caption && (
           <div style={{ fontSize: "0.95rem", lineHeight: 1.4 }}>
             <strong>{username}</strong> {caption}
