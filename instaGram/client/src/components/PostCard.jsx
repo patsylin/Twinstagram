@@ -5,6 +5,8 @@ export default function PostCard({
   imageUrl,
   caption = "",
 }) {
+  console.log("PostCard rendering:", { username, imageUrl, caption });
+
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
 
@@ -43,7 +45,6 @@ export default function PostCard({
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
-        {/* skeleton only while loading AND imageUrl exists */}
         {!loaded && imageUrl && (
           <div
             style={{
@@ -67,9 +68,10 @@ export default function PostCard({
             alt={caption || "post image"}
             loading="lazy"
             onLoad={() => setLoaded(true)}
-            onError={() => {
+            onError={(e) => {
+              console.error("Image failed to load:", imageUrl, e);
               setError(true);
-              setLoaded(true); // stops skeleton overlay
+              setLoaded(true);
             }}
             style={{
               width: "100%",
@@ -103,7 +105,6 @@ export default function PostCard({
           </div>
         </div>
 
-        {/* caption */}
         {caption && (
           <div style={{ fontSize: "0.95rem", lineHeight: 1.4 }}>
             <strong>{username}</strong> {caption}
