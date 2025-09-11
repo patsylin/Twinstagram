@@ -30,14 +30,14 @@ export default function AllPosts() {
           return {
             id: i + 1,
             username: `user_${(i % 5) + 1}`,
-            imageUrl: url,
+            imageUrl: url, // ✅ FIX: pass correct URL
             caption: caption || `[NO CAPTION for ${filename}]`,
           };
         });
 
         setPosts(demo);
 
-        // Debug: show all posts being rendered
+        // Debug table for confirmation
         console.table(
           demo.map((d) => ({
             filename: d.imageUrl,
