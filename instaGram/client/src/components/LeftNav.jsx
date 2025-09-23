@@ -16,7 +16,7 @@ function Item({ to, label, icon }) {
 export default function LeftNav() {
   return (
     <nav className="ig-left-nav">
-      <div className="ig-brand">instaGram</div>
+      <div className="ig-brand">TwinstaGram</div>
       <Item to="/" label="Home" icon="🏠" />
       <Item to="/users" label="Users" icon="👥" />
       <Item to="/users/new" label="Create" icon="➕" />
