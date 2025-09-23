@@ -1,6 +1,8 @@
 .ig-shell {
   display: grid;
   grid-template-columns: 72px minmax(320px, 640px) minmax(260px, 360px);
+  display: grid;
+  grid-template-columns: 220px minmax(320px, 640px) minmax(260px, 360px);
   gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
@@ -60,6 +62,10 @@ body {
   margin: 8px 0 16px;
   font-size: 14px;
   letter-spacing: 0.2px;
+  font-weight: 800;
+  margin: 4px 0 16px;
+  font-size: 20px;
+  letter-spacing: 0.2px;
 }
 .ig-nav-item {
   display: flex;
@@ -81,7 +87,16 @@ body {
 }
 .ig-nav-label {
   display: none;
-} /* compact rail */
+}
+.ig-nav-label {
+  display: inline;
+}
+
+@media (max-width: 1100px) {
+  ig-nav-label {
+    display: none;
+  }
+}
 .ig-left-spacer {
   flex: 1;
 }
@@ -172,6 +187,15 @@ body {
 }
 .ig-card-img {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #191b1f;
+  background: #191b1f; /* fallback background behind images */
+  border-radius: 8px; /* optional, but keeps card look */
+  overflow: hidden; /* prevents images from spilling outside */
+}
+
+.ig-card-img img {
+  display: block;
+  width: 100%;
+  height: auto; /* keep natural proportions */
+  max-height: 520px; /* cap tall photos */
+  object-fit: cover; /* crop if capped */
 }
