@@ -13,10 +13,13 @@ export default function PostCard({
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  // interaction state
+  // interactions
   const [liked, setLiked] = React.useState(false);
   const [saved, setSaved] = React.useState(false);
   const [likeCount, setLikeCount] = React.useState(0);
+
+  // comments
+  const [comments, setComments] = React.useState([]);
   const commentInputRef = React.useRef(null);
 
   const fallback = "https://picsum.photos/seed/twinstagram-fallback/600/600";
@@ -26,7 +29,7 @@ export default function PostCard({
     setLikeCount((c) => (liked ? Math.max(0, c - 1) : c + 1));
   }
 
-  function handleComment() {
+  function handleCommentButton() {
     if (typeof onOpenComments === "function") return onOpenComments(id);
     commentInputRef.current?.focus();
   }
@@ -43,6 +46,14 @@ export default function PostCard({
 
   function handleSave() {
     setSaved((v) => !v);
+  }
+
+  function handleAddComment(e) {
+    if (e.key !== "Enter") return;
+    const val = e.currentTarget.value.trim();
+    if (!val) return;
+    setComments((prev) => [...prev, val]);
+    e.currentTarget.value = "";
   }
 
   return (
@@ -64,7 +75,7 @@ export default function PostCard({
         <div style={{ marginLeft: "auto", opacity: 0.7 }}>⋯</div>
       </div>
 
-      {/* image area */}
+      {/* image */}
       <div
         className="ig-card-img"
         style={{
@@ -125,8 +136,8 @@ export default function PostCard({
           <button
             type="button"
             className="ig-icon-btn"
-            aria-label={liked ? "Unlike" : "Like"}
             aria-pressed={liked}
+            aria-label={liked ? "Unlike" : "Like"}
             onClick={handleLike}
             title={liked ? "Unlike" : "Like"}
           >
@@ -137,7 +148,7 @@ export default function PostCard({
             type="button"
             className="ig-icon-btn"
             aria-label="Comment"
-            onClick={handleComment}
+            onClick={handleCommentButton}
             title="Comment"
           >
             💬
@@ -157,12 +168,12 @@ export default function PostCard({
             <button
               type="button"
               className="ig-icon-btn"
-              aria-label={saved ? "Unsave" : "Save"}
               aria-pressed={saved}
+              aria-label={saved ? "Unsave" : "Save"}
               onClick={handleSave}
               title={saved ? "Unsave" : "Save"}
             >
-              {saved ? "🔖" : "🔖"}
+              🔖
             </button>
           </div>
         </div>
@@ -179,6 +190,18 @@ export default function PostCard({
           </div>
         )}
 
+        {/* comments list */}
+        {comments.length > 0 && (
+          <div style={{ marginTop: 4, display: "grid", gap: 4 }}>
+            {comments.map((c, i) => (
+              <div key={i} style={{ fontSize: "0.92rem" }}>
+                <strong>{username}</strong> {c}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* add comment */}
         <input
           ref={commentInputRef}
           type="text"
@@ -192,19 +215,13 @@ export default function PostCard({
             padding: "8px 10px",
             color: "inherit",
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.currentTarget.value.trim()) {
-              alert(`(demo) Comment: ${e.currentTarget.value.trim()}`);
-              e.currentTarget.value = "";
-            }
-          }}
+          onKeyDown={handleAddComment}
         />
       </div>
     </article>
   );
 }
 
-// ✅ add prop-types at the bottom
 PostCard.propTypes = {
   id: PropTypes.string,
   username: PropTypes.string,
