@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function PostCard({
   id = "p_1",
@@ -8,7 +9,7 @@ export default function PostCard({
   caption = "",
   onOpenComments,
 }) {
-  console.log("PostCard rendering:", { username, imageUrl, caption });
+  const { user } = useAuth(); // 👈 current logged-in user
 
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -18,7 +19,7 @@ export default function PostCard({
   const [saved, setSaved] = React.useState(false);
   const [likeCount, setLikeCount] = React.useState(0);
 
-  // comments
+  // comments are now objects: { author, text }
   const [comments, setComments] = React.useState([]);
   const commentInputRef = React.useRef(null);
 
@@ -52,7 +53,9 @@ export default function PostCard({
     if (e.key !== "Enter") return;
     const val = e.currentTarget.value.trim();
     if (!val) return;
-    setComments((prev) => [...prev, val]);
+
+    const author = user?.username || "guest"; // 👈 use logged-in user (fallback to 'guest')
+    setComments((prev) => [...prev, { author, text: val }]);
     e.currentTarget.value = "";
   }
 
@@ -195,7 +198,7 @@ export default function PostCard({
           <div style={{ marginTop: 4, display: "grid", gap: 4 }}>
             {comments.map((c, i) => (
               <div key={i} style={{ fontSize: "0.92rem" }}>
-                <strong>{username}</strong> {c}
+                <strong>{c.author}</strong> {c.text}
               </div>
             ))}
           </div>
