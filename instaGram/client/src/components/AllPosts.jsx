@@ -4,6 +4,8 @@ import { fetchAllPosts } from "@/fetching.js";
 import PostCard from "./PostCard.jsx";
 import { IMAGES } from "../data/images.js";
 import { CAPTION_BY_FILE } from "../data/captions.js";
+import { USERS, normalizeHandle } from "../data/users.js";
+import { POSTS as LOCAL_POSTS } from "../data/posts.js";
 
 export default function AllPosts() {
   const [posts, setPosts] = useState([]);
@@ -14,34 +16,45 @@ export default function AllPosts() {
         const res = await fetchAllPosts();
 
         if (Array.isArray(res) && res.length > 0) {
-          setPosts(res);
-        } else {
-          throw new Error("Empty/invalid API result");
+          // Normalize any legacy usernames coming from the API
+          const withHandles = res.map((p, i) => ({
+            id: p.id ?? i + 1,
+            ...p,
+            username: normalizeHandle(p.username),
+          }));
+          setPosts(withHandles);
+          return;
         }
-      } catch {
-        // Fallback: build posts from local images with caption map
+        throw new Error("Empty/invalid API result");
+      } catch (err) {
+        console.warn("[AllPosts] API unavailable, using local data.", err);
+
+        // 1) Preferred fallback: local generator already using USERS handles
+        if (Array.isArray(LOCAL_POSTS) && LOCAL_POSTS.length) {
+          setPosts(LOCAL_POSTS);
+          return;
+        }
+
+        // 2) Final fallback: build from IMAGES + captions and rotate USERS handles
         const demo = IMAGES.map(({ filename, url }, i) => {
           const caption = CAPTION_BY_FILE[filename];
+          if (!caption) console.warn(`⚠️ Missing caption for: ${filename}`);
 
-          if (!caption) {
-            console.warn(`⚠️ Missing caption for: ${filename}`);
-          }
-
+          const u = USERS[i % USERS.length];
           return {
             id: i + 1,
-            username: `user_${(i % 5) + 1}`,
-            imageUrl: url, // ✅ FIX: pass correct URL
+            username: u.handle, // use real IG-style handle
+            imageUrl: url,
             caption: caption || `[NO CAPTION for ${filename}]`,
           };
         });
 
         setPosts(demo);
-
-        // Debug table for confirmation
         console.table(
           demo.map((d) => ({
-            filename: d.imageUrl,
+            image: d.imageUrl,
             caption: d.caption,
+            user: d.username,
           }))
         );
       }
@@ -50,10 +63,11 @@ export default function AllPosts() {
 
   return (
     <div className="ig-feed-inner">
-      {posts.map((p) => (
+      {posts.map((p, i) => (
         <PostCard
-          key={p.id}
-          username={p.username}
+          key={p.id ?? `${p.username}-${i}`}
+          id={`p_${p.id ?? i + 1}`}
+          username={normalizeHandle(p.username)}
           imageUrl={p.imageUrl}
           caption={p.caption}
         />
