@@ -1,5 +1,9 @@
 export const USERS = [
-  { handle: "penny_pumpkin", name: "Penny O'Brien" },
+  {
+    handle: "penny_pumpkin",
+    name: "Penny O'Brien",
+    avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=Katherine",
+  },
   {
     handle: "NatureGirl",
     name: "Sally Soleman",
