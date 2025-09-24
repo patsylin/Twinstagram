@@ -1,9 +1,25 @@
 export const USERS = [
   { handle: "penny_pumpkin", name: "Penny O'Brien" },
-  { handle: "NatureGirl", name: "Sally Soleman" },
-  { handle: "YogiForever", name: "Willow Wilson" },
-  { handle: "BeYourself", name: "Oscar Wilding" },
-  { handle: "ConnectedToLife ", name: "Allie Anderson" },
+  {
+    handle: "NatureGirl",
+    name: "Sally Soleman",
+    avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=Alexander",
+  },
+  {
+    handle: "YogiForever",
+    name: "Willow Wilson",
+    avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=George",
+  },
+  {
+    handle: "BeYourself",
+    name: "Oscar Wilding",
+    avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=Ryan",
+  },
+  {
+    handle: "ConnectedToLife ",
+    name: "Allie Anderson",
+    avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=Eden",
+  },
 ];
 
 export const userByHandle = (h) => USERS.find((u) => u.handle === h);
