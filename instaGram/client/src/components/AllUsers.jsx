@@ -7,7 +7,7 @@ export default function AllUsers() {
 
   return (
     <div className="ig-page">
-      <h1>All Users</h1>
+      <h1>Following</h1>
 
       {users.length === 0 ? (
         <p>No users yet.</p>
