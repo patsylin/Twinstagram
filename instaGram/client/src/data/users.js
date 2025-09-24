@@ -5,3 +5,5 @@ export const USERS = [
   { handle: "BeYourself", name: "Oscar Wilding" },
   { handle: "ConnectedToLife ", name: "Allie Anderson" },
 ];
+
+export const userByHandle = (h) => USERS.find((u) => u.handle === h);
