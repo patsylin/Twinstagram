@@ -7,3 +7,10 @@ export const USERS = [
 ];
 
 export const userByHandle = (h) => USERS.find((u) => u.handle === h);
+
+export function normalizeHandle(h) {
+  const m = /^user_(\d+)$/.exec(h);
+  if (!m) return h;
+  const idx = (Number(m[1]) - 1) % USERS.length;
+  return USERS[idx].handle;
+}

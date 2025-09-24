@@ -22,3 +22,8 @@ export const POSTS = entries.map(([path, url], i) => {
     createdAt: new Date().toISOString(),
   };
 });
+
+console.log(
+  "[posts] first 3 usernames:",
+  entries.slice(0, 3).map((_, i) => USERS[i % USERS.length].handle)
+);

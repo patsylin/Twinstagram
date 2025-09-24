@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useAuth } from "../context/AuthContext.jsx";
-import { userByHandle } from "../data/users";
+import { userByHandle, normalizeHandle } from "../data/users";
 
 export default function PostCard({
   id = "p_1",
@@ -11,11 +11,8 @@ export default function PostCard({
   onOpenComments,
 }) {
   const { user } = useAuth(); // logged-in user (for comments)
-  const profile = userByHandle(username) || {
-    handle: username,
-    name: "",
-    avatar: "",
-  };
+  const handle = normalizeHandle(username);
+  const profile = userByHandle(handle) || { handle, name: "", avatar: "" };
 
   const [loaded, setLoaded] = React.useState(false);
   const [error, setError] = React.useState(false);
