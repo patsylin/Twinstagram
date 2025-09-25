@@ -51,7 +51,7 @@ export default function LeftNav() {
     <nav className="ig-left-nav">
       <div className="ig-brand">TwinstaGram</div>
       <Item to="/" label="Home" icon="🏠" />
-      <Item to="/users" label="Followers" icon="👥" />
+      <Item to="/users" label="Following " icon="👥" />
       <Item to="/users/new" label="Create" icon="➕" />
 
       {user ? (
