@@ -1,3 +1,4 @@
+// src/data/users.js
 export const USERS = [
   {
     handle: "penny_pumpkin",
@@ -20,10 +21,10 @@ export const USERS = [
     avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=Ryan",
   },
   {
-    handle: "ConnectedToLife ",
+    handle: "ConnectedToLife",
     name: "Allie Anderson",
     avatar: "https://api.dicebear.com/9.x/adventurer/svg?seed=Eden",
-  },
+  }, // <- trimmed
 ];
 
 export const userByHandle = (h) => USERS.find((u) => u.handle === h);

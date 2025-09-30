@@ -1,6 +1,6 @@
 // src/components/AllPosts.jsx
 import { useEffect, useState } from "react";
-import { fetchAllPosts } from "@/fetching.js";
+import { fetchAllPosts } from "../fetching.js"; // adjust the ../ if the depth differs
 import PostCard from "./PostCard.jsx";
 import { IMAGES } from "../data/images.js";
 import { CAPTION_BY_FILE } from "../data/captions.js";

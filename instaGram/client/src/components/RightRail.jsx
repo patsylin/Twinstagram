@@ -1,12 +1,18 @@
 // src/components/RightRail.jsx
 import { USERS } from "../data/users.js";
+import { SUGGESTED_USERS } from "../data/suggested.js";
+import { POSTS } from "../data/posts.js";
 
 export default function RightRail() {
-  const suggestions = USERS.slice(0, 3); // or however many you want
+  // people “you follow” (authors in the feed)
+  const following = new Set(POSTS.map((p) => p.username));
+  // exclude anyone already followed AND anyone from USERS (if you want them totally distinct)
+  const suggestions = SUGGESTED_USERS.filter(
+    (u) => !following.has(u.handle) && !USERS.some((x) => x.handle === u.handle)
+  ).slice(0, 5);
 
   return (
     <div className="ig-right-rail">
-      {/* suggestions only */}
       <div className="ig-section-header">
         <span>Suggested for you</span>
         <button className="ig-link-button">See All</button>
@@ -16,7 +22,7 @@ export default function RightRail() {
         {suggestions.map((u) => (
           <li key={u.handle} className="ig-suggest-item">
             <img
-              src={u.avatar || "/images/avatars/default.png"}
+              src={u.avatar}
               alt={u.handle}
               className="ig-avatar sm"
               style={{ width: 36, height: 36, borderRadius: "50%" }}
